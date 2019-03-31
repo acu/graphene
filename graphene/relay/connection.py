@@ -67,7 +67,7 @@ class Connection(ObjectType):
         _node = node
 
         class EdgeBase(object):
-            node = Field(_node, description="The item at the end of the edge")
+            node = Field(_node, required=True, description="The item at the end of the edge")
             cursor = String(required=True, description="A cursor for use in pagination")
 
         class EdgeMeta:
@@ -100,7 +100,7 @@ class Connection(ObjectType):
                 (
                     "edges",
                     Field(
-                        NonNull(List(edge)),
+                        NonNull(List(NonNull(edge))),
                         description="Contains the nodes in this connection.",
                     ),
                 ),
